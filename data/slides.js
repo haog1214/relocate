@@ -9,7 +9,7 @@
 
 window.DECK = {
   title: "RE:LOCATE",
-  subtitle: "從關稅危機到越南新局",
+  subtitle: "從關稅危機到泰國新局",
 
   chapters: [
     { no: "01", en: "BACKGROUND",    zh: "背景與目的",     owner: "車治德／蘇沁榆" },
@@ -27,7 +27,7 @@ window.DECK = {
   slides: [
     /* 01 */ { type: "cover" },
 
-    /* 02 */ { type: "chapter",   ch: 0, lead: "美國關稅政策衝擊下，評估將生產基地遷往越南的背景與專案目的。" },
+    /* 02 */ { type: "chapter",   ch: 0, lead: "美國關稅政策衝擊下，評估將生產基地遷往泰國的背景與專案目的。" },
     /* 03 */ { type: "stats",     ch: 0, en: "PURPOSE",         title: "關稅衝擊與專案目的", ghost: "TARIFF" },
 
     /* 04 */ { type: "statement", ch: 1, en: "PROJECT SCOPE",   title: "專案範疇與交付項目", ghost: "SCOPE" },
@@ -50,10 +50,10 @@ window.DECK = {
     /* 15 */ { type: "chapter",   ch: 7, lead: "訂定產品與流程的品質標準，確保遷廠後品質一致。" },
     /* 16 */ { type: "compare",   ch: 7, en: "QC STANDARDS",    title: "品質標準與管控",     ghost: "QUALITY" },
 
-    /* 17 */ { type: "chapter",   ch: 8, lead: "規劃台灣、越南與客戶之間的溝通管道、頻率與權責。" },
+    /* 17 */ { type: "chapter",   ch: 8, lead: "規劃台灣、泰國與客戶之間的溝通管道、頻率與權責。" },
     /* 18 */ { type: "statement", ch: 8, en: "CHANNELS",        title: "溝通管道與頻率",     ghost: "TALK" },
 
     /* 19 */ { type: "chapter",   ch: 9, lead: "建立在地供應商評選與採購流程，穩定供應鏈。" },
-    /* 20 */ { type: "compare",   ch: 9, en: "SOURCING",        title: "供應商與採購策略",   ghost: "VIETNAM" }
+    /* 20 */ { type: "compare",   ch: 9, en: "SOURCING",        title: "供應商與採購策略",   ghost: "THAILAND" }
   ]
 };

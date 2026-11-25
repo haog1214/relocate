@@ -100,7 +100,7 @@
       return `
         <div class="ph compare-table fx">
           <div class="compare-table__row compare-table__row--head">
-            <span>ITEM</span><span>BEFORE</span><span>AFTER · VN</span><span>DIFF</span>
+            <span>ITEM</span><span>BEFORE</span><span>AFTER · TH</span><span>DIFF</span>
           </div>
           ${rows
             .map(
