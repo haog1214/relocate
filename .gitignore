@@ -1,0 +1,5 @@
+# 本機用檔案（不上傳）
+設計規範.md
+serve.py
+.claude/
+.DS_Store

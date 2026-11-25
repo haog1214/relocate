@@ -1,0 +1,75 @@
+/* =========================================================
+   base.css — 重置、字級、畫布縮放
+   ========================================================= */
+*,
+*::before,
+*::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--c-letterbox);
+  color: var(--c-text);
+  font-family: var(--f-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior: none;
+  touch-action: none;
+}
+
+ul { list-style: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+
+/* ---------- 畫布：1920×1080 等比縮放 ---------- */
+#root { position: fixed; inset: 0; overflow: hidden; background: var(--c-letterbox); }
+
+#stage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--stage-w);
+  height: var(--stage-h);
+  transform: translate(-50%, -50%) scale(var(--scale, 0.5));
+  transform-origin: center center;
+  background: var(--c-bg);
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(10, 49, 97, 0.04);
+}
+
+/* ---------- 字級 ---------- */
+.t-display { font-family: var(--f-display); font-weight: 700; font-size: var(--fs-display); line-height: var(--lh-display); letter-spacing: var(--ls-display); }
+.t-h1      { font-family: var(--f-display); font-weight: 600; font-size: var(--fs-h1); line-height: var(--lh-h1); }
+.t-stat    { font-family: var(--f-num); font-weight: 600; font-size: var(--fs-stat); line-height: var(--lh-stat); letter-spacing: var(--ls-stat); }
+.t-h2      { font-family: var(--f-body); font-weight: 700; font-size: var(--fs-h2); line-height: var(--lh-h2); letter-spacing: var(--ls-h2); }
+.t-h3      { font-family: var(--f-body); font-weight: 500; font-size: var(--fs-h3); line-height: var(--lh-h3); letter-spacing: var(--ls-h3); }
+.t-lead    { font-family: var(--f-body); font-weight: 500; font-size: var(--fs-lead); line-height: var(--lh-lead); letter-spacing: var(--ls-lead); }
+.t-body    { font-size: var(--fs-body); line-height: var(--lh-body); letter-spacing: var(--ls-body); }
+.t-small   { font-size: var(--fs-small); line-height: var(--lh-small); letter-spacing: var(--ls-body); color: var(--c-text-sub); }
+.t-label   { font-family: var(--f-num); font-weight: 500; font-size: var(--fs-label); letter-spacing: var(--ls-label); text-transform: uppercase; line-height: 1; }
+.num       { font-family: var(--f-num); }
+
+/* ---------- 拆字 ---------- */
+.split { white-space: nowrap; }
+.split .ch { display: inline-block; will-change: transform; }
+
+/* ---------- 背景巨型字 ---------- */
+.ghost-word {
+  position: absolute;
+  left: 80px;
+  bottom: -40px;
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: var(--fs-giant);
+  line-height: var(--lh-giant);
+  letter-spacing: var(--ls-giant);
+  color: var(--c-ghost);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  z-index: var(--z-ghost);
+}
+
+/* ---------- 無障礙 ---------- */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }

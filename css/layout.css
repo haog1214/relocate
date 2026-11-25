@@ -1,0 +1,390 @@
+/* =========================================================
+   layout.css — 封面、左側選單、頁面類型、轉場色帶
+   ========================================================= */
+
+/* ================= 封面 ================= */
+/* 封面底色：皺紙質感（淺灰紙＋細顆粒＋明暗斑塊） */
+.cover {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 20;
+  background-color: var(--c-paper);
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .13 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1920' height='1080'><filter id='c'><feTurbulence type='fractalNoise' baseFrequency='.004 .006' numOctaves='4' seed='7'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .16 -.03'/></filter><rect width='100%' height='100%' filter='url(%23c)'/></svg>"),
+    radial-gradient(ellipse at 30% 20%, rgba(255, 255, 255, 0.55), transparent 55%),
+    radial-gradient(ellipse at 85% 90%, rgba(0, 0, 0, 0.06), transparent 50%);
+  background-blend-mode: multiply, multiply, normal, normal;
+}
+.cover__ghost { left: -20px; bottom: -70px; font-size: 400px; color: rgba(26, 31, 43, 0.06); }
+
+/* 左下角拼貼風人物 */
+/* 等比放大 2.4 倍（以左下角為基準），頭頂約在 y=330；
+   往左移讓臉露在大標題左側（左半邊頭髮略出畫面），之後再往右 80px */
+.cover__figure {
+  position: absolute;
+  left: -378px;
+  bottom: 68px;
+  width: 460px;
+  height: 290px;
+  margin: 0;
+  z-index: 4;
+  pointer-events: none;
+  transform: scale(2.4);
+  transform-origin: 0 100%;
+}
+.cover__splat { position: absolute; left: -60px; bottom: -110px; width: 560px; opacity: 0.92; }
+.cover__person {
+  position: absolute;
+  left: 40px;
+  top: 6px;
+  width: 380px;
+  height: auto;
+  /* 白色貼紙描邊＋落影 */
+  filter:
+    drop-shadow(5px 0 0 #fff) drop-shadow(-5px 0 0 #fff) drop-shadow(0 5px 0 #fff) drop-shadow(0 -5px 0 #fff)
+    drop-shadow(0 14px 22px rgba(0, 0, 0, 0.28));
+}
+.cover__tape {
+  position: absolute;
+  left: 26px;
+  top: 70px;
+  width: 110px;
+  height: 28px;
+  background: rgba(10, 49, 97, 0.82);
+  transform: rotate(-32deg);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  clip-path: polygon(3% 0, 97% 6%, 100% 50%, 96% 100%, 2% 94%, 0 45%);
+}
+
+.cover__top {
+  position: absolute;
+  left: var(--pad-x);
+  right: var(--pad-x);
+  top: 72px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--c-gray);
+}
+.brand { display: flex; align-items: baseline; gap: var(--sp-2); }
+.brand__mark { font-family: var(--f-display); font-weight: 700; font-size: 32px; color: var(--c-navy); letter-spacing: 0.02em; }
+.brand__sub { color: var(--c-gray); font-family: var(--f-body); font-weight: 500; font-size: 17px; letter-spacing: 0.3em; }
+
+/* 大小標語整組：左緣 400px、上緣 220px（累計右移、上移），疊在人物之上 */
+.cover__main { position: absolute; left: 400px; top: 220px; z-index: 5; }
+.cover__eyebrow { color: var(--c-red); margin-bottom: var(--sp-3); margin-left: 100px; display: flex; align-items: center; gap: 14px; }
+.cover__eyebrow::before { content: ""; width: 40px; height: 2px; background: var(--c-red); }
+/* 主標題「關稅政策下的／遷移計畫」：放在原 RE:LOCATE 的位置，144px 分兩行，
+   每行貼在淺色紙條上（拼貼風），疊在人物之上仍可讀 */
+.cover__headline { margin: 0; font-family: var(--f-body); font-weight: 700; font-size: 144px; line-height: 1; letter-spacing: 0.02em; color: var(--c-navy); }
+.cover__strip,
+.cover__lead {
+  display: block;
+  width: fit-content;
+  background: #F4F2ED;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+  clip-path: polygon(0 4%, 1.5% 0, 99% 3%, 100% 96%, 98.5% 100%, 1% 97%);
+}
+/* 主標題與副標比其他文案再往右 30px（margin-left 由 -26／-18 改為 +4／+12） */
+/* 大小標語比 US TARIFF × THAILAND 再往右 100px */
+.cover__strip { padding: 10px 26px 18px; margin-left: 104px; white-space: nowrap; transform: rotate(-1deg); }
+.cover__strip + .cover__strip { margin-top: 14px; transform: rotate(0.8deg); }
+/* 小標語「從美國關稅危機到泰國開創新局」：46px（避開右下角地球儀左緣） */
+.cover__lead {
+  margin: var(--sp-4) 0 0 112px;
+  padding: 6px 20px 9px;
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 46px;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  color: #3B4252;
+}
+/* 右上角：PROJECT MANAGEMENT · 2026 下方放課程與組別 */
+.cover__top { align-items: flex-start; }
+.cover__topright { display: flex; flex-direction: column; align-items: flex-end; gap: var(--sp-3); }
+.cover__meta { display: flex; gap: var(--sp-4); font-size: var(--fs-small); color: var(--c-ink); }
+.cover__meta li { display: flex; flex-direction: column; gap: 12px; padding-left: 20px; border-left: 2px solid var(--c-line); }
+.cover__meta .t-label { color: var(--c-gray); }
+.cover__advisors { display: block; margin-top: 8px; font-size: 15px; color: var(--c-gray); letter-spacing: 0.04em; }
+
+/* 地球儀：放大為上一版的 200%（原尺寸 128%），移到畫面右下角，
+   只露出左邊與上面約 3/4，右側與下方超出畫面。以下緣定位，畫面高度改變時仍貼齊底部 */
+.cover__visual {
+  position: absolute;
+  right: -168px;
+  bottom: -88px; /* 往上 80px */
+  width: 760px;
+  height: 760px;
+  transform: scale(1.28);
+  transform-origin: 50% 50%;
+  z-index: 3;
+}
+/* NEW BASE 圓標：移出地球儀容器，放在地球儀左下緣可見處 */
+/* 核彈按鈕（參考立體按鈕）：222px，中心維持原位；點擊地球儀轉回初始視角
+   白色底座＋灰色側邊做出厚度，深藍圓頂帶亮面，白色輻射圖示 */
+.badge-circle.cover__badge {
+  position: absolute;
+  right: 559px;
+  bottom: 69px;
+  z-index: 6;
+  width: 222px;
+  height: 222px;
+  gap: 0;
+  cursor: pointer;
+  background: radial-gradient(circle at 38% 30%, #3F6DB3 0%, var(--c-navy) 52%, #061F3E 100%);
+  box-shadow:
+    inset 0 10px 16px rgba(255, 255, 255, 0.16),
+    inset 0 -14px 22px rgba(0, 0, 0, 0.38),
+    0 0 0 12px #F4F5F7,
+    0 0 0 14px #CDD2DA,
+    0 12px 0 12px #B5BBC5,
+    0 12px 0 14px #9CA3AF,
+    0 30px 34px 6px rgba(6, 31, 62, 0.35);
+  transition: transform 0.18s var(--ease-out), box-shadow 0.18s, filter 0.3s;
+}
+/* 圓頂上的亮面 */
+.cover__badge::before {
+  content: "";
+  position: absolute;
+  left: 18%;
+  top: 7%;
+  width: 64%;
+  height: 34%;
+  border-radius: 50%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0));
+  pointer-events: none;
+}
+.cover__badge .nuke-icon {
+  width: 64%;
+  height: 64%;
+  fill: #FFFFFF;
+  filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.35));
+  transition: transform 0.5s var(--ease-out);
+}
+.cover__badge:hover { filter: brightness(1.12); }
+.cover__badge:hover .nuke-icon { transform: rotate(60deg); }
+/* 按下：圓頂往下壓、底座側邊變薄 */
+.cover__badge:active {
+  transform: translateY(8px);
+  box-shadow:
+    inset 0 10px 16px rgba(255, 255, 255, 0.12),
+    inset 0 -8px 16px rgba(0, 0, 0, 0.45),
+    0 0 0 12px #F4F5F7,
+    0 0 0 14px #CDD2DA,
+    0 4px 0 12px #B5BBC5,
+    0 4px 0 14px #9CA3AF,
+    0 14px 20px 6px rgba(6, 31, 62, 0.3);
+}
+
+.scroll-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 48px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  color: var(--c-navy);
+  z-index: 3;
+}
+.scroll-hint__line { position: relative; width: 1px; height: 72px; background: var(--c-line); overflow: hidden; }
+.scroll-hint__line i { position: absolute; left: 0; top: 0; width: 1px; height: 28px; background: var(--c-red); animation: scrollflow 1.8s var(--ease-page) infinite; }
+@keyframes scrollflow { 0% { transform: translateY(-30px); } 100% { transform: translateY(80px); } }
+
+/* ================= 內容區 ================= */
+.deck { position: absolute; inset: 0; z-index: 10; }
+
+.slides {
+  position: absolute;
+  left: var(--sidebar-w);
+  top: 0;
+  width: calc(var(--stage-w) - var(--sidebar-w));
+  height: var(--stage-h);
+  overflow: hidden;
+  background: var(--c-white);
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--c-white);
+  visibility: hidden;
+  transform-origin: center center;
+}
+.slide.is-active { visibility: visible; }
+
+/* 標題組合 */
+.head { position: absolute; left: var(--pad-x); top: var(--pad-y); z-index: var(--z-content); }
+.head__label { color: var(--c-red); display: flex; align-items: center; gap: 14px; margin-bottom: var(--sp-3); }
+.head__sep { width: 32px; height: 1px; background: currentColor; opacity: 0.6; }
+.head .t-h1 { color: var(--c-navy); }
+.head .t-h2 { margin-top: var(--sp-2); color: var(--c-ink); }
+
+.source { position: absolute; right: var(--pad-x); bottom: 40px; font-size: var(--fs-small); color: var(--c-gray); z-index: var(--z-content); }
+
+/* ================= 章節開場頁 ================= */
+.slide--chapter { background: var(--g-chapter); color: var(--c-on-dark); }
+.chapter__no {
+  position: absolute;
+  left: 40px;
+  top: -60px;
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: 620px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.06);
+  pointer-events: none;
+}
+.chapter__text { position: absolute; left: var(--pad-x); bottom: 120px; z-index: var(--z-content); }
+.chapter__label { color: var(--c-on-dark-sub); display: flex; align-items: center; gap: 14px; margin-bottom: var(--sp-3); }
+.chapter__label::before { content: ""; width: 40px; height: 2px; background: var(--c-red); }
+.chapter__text .t-h2 { margin-top: var(--sp-3); }
+.chapter__lead { margin-top: var(--sp-3); color: var(--c-on-dark-sub); max-width: 1100px; }
+.slide--chapter .glass { top: 140px; }
+
+/* ================= 結尾頁 ================= */
+.end__text { position: absolute; left: var(--pad-x); top: 300px; z-index: var(--z-content); }
+.end__text .t-display { color: var(--c-navy); }
+.end__text .t-h2 { margin-top: var(--sp-3); }
+.end__lead { margin-top: var(--sp-3); color: var(--c-red); font-family: var(--f-num); letter-spacing: 0.2em; }
+.slide--end .glass { top: auto; bottom: 120px; }
+
+/* ================= 左側選單 ================= */
+.sidebar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--sidebar-w);
+  height: var(--stage-h);
+  background: var(--c-sidebar);
+  border-right: 0;
+  padding: 64px 28px 56px;
+  display: flex;
+  flex-direction: column;
+  z-index: var(--z-sidebar);
+}
+.sidebar__brand { display: block; text-align: left; }
+.sidebar__brand .brand__mark { display: block; font-size: 30px; line-height: 1; }
+/* 中文副標放大，緊貼英文下方，兩者間距 10px（行高設為 1 才不會多出空白） */
+.sidebar__brand .sidebar__tagline { display: block; margin-top: 10px; color: var(--c-gray); font-family: var(--f-body); font-weight: 500; font-size: 17px; line-height: 1; letter-spacing: 0.18em; }
+
+/* 分頁標籤（參考圖一）：
+   - 寬度延伸到側欄右緣，左側膠囊圓角、右側直角
+   - 目前單元的頁籤底色＝右側頁面底色（內容頁白、章節頁深藍），像從側欄切出缺口與頁面相連
+   - 缺口上下用反向圓角接回側欄 */
+/* 圖層順序：頁籤虛線框（最底）→ 滑動指示塊 → 頁籤文字（最上）；指示塊會蓋住相鄰頁籤伸進反向圓角的虛線 */
+.tabs { position: relative; z-index: 0; margin: 48px -28px 0 0; list-style: none; }
+.tab {
+  position: relative;
+  z-index: auto;
+  height: 60px;
+  margin-top: 8px;
+  border: 1.5px dashed #B9C1CC;
+  border-right: 0;
+  border-radius: 30px 0 0 30px;
+  background: transparent;
+}
+.tab:first-child { margin-top: 0; }
+.tab__btn {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  height: 100%;
+  padding: 0 46px 0 20px;
+  text-align: left;
+  color: var(--c-gray);
+  transition: color 0.35s ease;
+}
+.tab__btn:hover { color: var(--c-navy); }
+.tab__ring {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 4px solid #B9C1CC;
+  background: transparent;
+  transition: border-color 0.35s ease, background 0.35s ease;
+}
+.tab__name { font-size: 17px; letter-spacing: 0.06em; white-space: nowrap; }
+.tab__no { margin-left: auto; font-family: var(--f-num); font-size: 12px; letter-spacing: 0.12em; opacity: 0.7; transition: opacity 0.3s; }
+
+/* 已完成 */
+.tab.is-done .tab__btn { color: var(--c-navy); }
+.tab.is-done .tab__ring { border-color: var(--c-navy); background: var(--c-navy); box-shadow: inset 0 0 0 2px var(--c-sidebar); }
+
+/* 目前單元：頁籤本身透明，底色由下方「滑動指示塊」提供 */
+.tab.is-current { border-color: transparent; }
+/* 目前頁籤上下相鄰的頁籤：右端 30px 淡出，避免虛線頭露在反向圓角旁 */
+.tab.is-near {
+  -webkit-mask-image: linear-gradient(to left, transparent 0, transparent 30px, #000 48px);
+  mask-image: linear-gradient(to left, transparent 0, transparent 30px, #000 48px);
+}
+.tab.is-current .tab__btn { color: var(--tab-active-fg); }
+.tab.is-current .tab__name { font-weight: 700; }
+.tab.is-current .tab__ring { border-color: var(--tab-active-fg); }
+.tab.is-current .tab__no { opacity: 0; }
+
+/* 滑動指示塊：只有一個，換單元時從舊頁籤流動到新頁籤（先拉長再收回），不會出現兩個半透明的殘影
+   底色＝右側頁面底色，延伸到側欄右緣，上下各有反向圓角接回側欄 */
+.tabs__indicator {
+  position: absolute;
+  left: 0;
+  right: -3px; /* 往右多伸 3px 蓋住與右側頁面的交界，縮放時才不會露出細白線 */
+  top: 0;
+  height: 60px;
+  z-index: 1;
+  border-radius: 30px 0 0 30px;
+  background: var(--tab-active-bg);
+  transition: background 0.35s ease;
+  pointer-events: none;
+  will-change: top, height;
+}
+.tabs__indicator::before,
+.tabs__indicator::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  width: 24px;
+  height: 24px;
+  transition: background 0.35s ease;
+}
+.tabs__indicator::before { top: -24px; background: radial-gradient(circle at 0 0, transparent 23.5px, var(--tab-active-bg) 24px); }
+.tabs__indicator::after { bottom: -24px; background: radial-gradient(circle at 0 100%, transparent 23.5px, var(--tab-active-bg) 24px); }
+
+/* 側欄依右側頁面切換配色：內容頁＝白，章節開場頁＝深藍 */
+.sidebar { --tab-active-bg: var(--c-white); --tab-active-fg: var(--c-navy); }
+.sidebar[data-tone="dark"] { --tab-active-bg: var(--c-navy); --tab-active-fg: var(--c-white); }
+
+/* 單元內頁面小圓點：只在目前單元顯示 */
+.tab__dots { position: absolute; z-index: 2; right: 22px; top: 50%; transform: translateY(-50%); display: flex; gap: 8px; opacity: 0; pointer-events: none; transition: opacity 0.4s 0.15s; }
+.tab.is-current .tab__dots { opacity: 1; pointer-events: auto; }
+.tab__dot {
+  width: var(--dot);
+  height: var(--dot);
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  color: var(--tab-active-fg);
+  opacity: 0.5;
+  transition: background 0.3s, opacity 0.3s, transform 0.3s;
+}
+.tab__dot.is-seen { background: currentColor; opacity: 0.45; }
+.tab__dot.is-here { background: var(--c-red); border-color: var(--c-red); opacity: 1; transform: scale(1.35); }
+
+
+/* ================= 旗幟條紋轉場 ================= */
+.wipe { position: absolute; inset: 0; z-index: var(--z-wipe); pointer-events: none; }
+.wipe__stripe { position: absolute; inset: 0; visibility: hidden; will-change: transform; }
+.wipe__stripe--navy { background: var(--g-chapter); display: flex; align-items: center; padding-left: var(--pad-x); }
+.wipe__stripe--red { background: var(--c-red); }
+.wipe__label { display: flex; align-items: baseline; gap: 40px; color: var(--c-white); }
+.wipe__no { font-family: var(--f-display); font-weight: 700; font-size: 280px; line-height: 1; color: rgba(255, 255, 255, 0.18); }
+.wipe__en { font-family: var(--f-display); font-weight: 700; font-size: 120px; line-height: 1; }
+.wipe__zh { font-size: var(--fs-h3); font-weight: 500; letter-spacing: 0.1em; color: var(--c-on-dark-sub); }

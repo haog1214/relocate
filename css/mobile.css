@@ -1,0 +1,278 @@
+/* =========================================================
+   mobile.css — 手機直向版面（RWD）
+   - 由 js/stage.js 在視窗寬高比 < 0.85 時於 <html> 加上 .is-mobile
+   - 設計寬度約 360～480px（手機 1:1），高度＝視窗高度
+   - 只覆寫桌機樣式，所有規則都以 .is-mobile 開頭，桌機不受影響
+   ========================================================= */
+
+.is-mobile {
+  --pad-x: 22px;
+  --bar-h: 56px;
+}
+.is-mobile .t-label { font-size: 10px; letter-spacing: 0.16em; }
+
+/* ================= 封面 ================= */
+.is-mobile .cover__ghost { left: -8px; bottom: auto; top: 46%; font-size: 150px; }
+
+/* 品牌與課程資訊：由上往下堆疊 */
+.is-mobile .cover__top { left: 20px; right: 20px; top: 26px; flex-direction: column; align-items: flex-start; gap: 16px; }
+.is-mobile .brand { gap: 10px; }
+.is-mobile .brand__mark { font-size: 24px; }
+.is-mobile .brand__sub { font-size: 12px; letter-spacing: 0.2em; }
+.is-mobile .cover__topright { align-items: flex-start; gap: 10px; }
+.is-mobile .cover__meta { gap: 18px; font-size: 13px; }
+.is-mobile .cover__meta li { gap: 6px; padding-left: 10px; }
+.is-mobile .cover__advisors { margin-top: 4px; font-size: 11px; letter-spacing: 0.02em; }
+
+/* 標語 */
+.is-mobile .cover__main { left: 20px; right: 20px; top: 162px; }
+.is-mobile .cover__eyebrow { margin: 0 0 14px; font-size: 10px; letter-spacing: 0.12em; gap: 10px; }
+.is-mobile .cover__eyebrow::before { width: 24px; }
+.is-mobile .cover__headline { font-size: 50px; letter-spacing: 0.02em; }
+.is-mobile .cover__strip { margin-left: 0; padding: 5px 14px 9px; }
+.is-mobile .cover__strip + .cover__strip { margin-top: 8px; }
+.is-mobile .cover__lead { margin: 16px 0 0; padding: 4px 12px 6px; font-size: 18px; letter-spacing: 0.06em; }
+
+/* 下半部拼貼：地球儀在右下（台灣、泰國在球體左上方）、人物在左下、核彈按鈕在右下角
+   一般手機瀏覽器（含網址列，寬高比約 0.55～0.62）為預設；更長或更短的螢幕見下方 @media */
+.is-mobile .cover__figure { left: -44px; bottom: 0; transform: scale(0.58); }
+.is-mobile .cover__visual { right: -320px; bottom: -194px; transform: scale(0.45); }
+.is-mobile .badge-circle.cover__badge {
+  right: 18px;
+  bottom: 22px;
+  width: 78px;
+  height: 78px;
+  box-shadow:
+    inset 0 4px 7px rgba(255, 255, 255, 0.16),
+    inset 0 -6px 10px rgba(0, 0, 0, 0.38),
+    0 0 0 5px #F4F5F7,
+    0 0 0 6px #CDD2DA,
+    0 5px 0 5px #B5BBC5,
+    0 5px 0 6px #9CA3AF,
+    0 12px 16px 3px rgba(6, 31, 62, 0.35);
+}
+.is-mobile .cover__badge:active {
+  transform: translateY(3px);
+  box-shadow:
+    inset 0 4px 7px rgba(255, 255, 255, 0.12),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.45),
+    0 0 0 5px #F4F5F7,
+    0 0 0 6px #CDD2DA,
+    0 2px 0 5px #B5BBC5,
+    0 2px 0 6px #9CA3AF,
+    0 6px 10px 3px rgba(6, 31, 62, 0.3);
+}
+.is-mobile .scroll-hint { display: none; }
+
+/* 較長的螢幕（全螢幕、網址列收起）：拼貼放大 */
+@media (max-aspect-ratio: 10/19) {
+  .is-mobile .cover__figure { left: -46px; bottom: 6px; transform: scale(0.74); }
+  .is-mobile .cover__visual { right: -300px; bottom: -118px; transform: scale(0.56); }
+}
+/* 較短的螢幕（小尺寸手機＋網址列）：文字與拼貼都縮小 */
+@media (min-aspect-ratio: 5/8) {
+  .is-mobile .cover__top { top: 20px; gap: 12px; }
+  .is-mobile .cover__main { top: 154px; }
+  .is-mobile .cover__eyebrow { margin-bottom: 10px; }
+  .is-mobile .cover__headline { font-size: 42px; }
+  .is-mobile .cover__lead { margin-top: 12px; font-size: 16px; }
+  .is-mobile .cover__figure { left: -30px; transform: scale(0.5); }
+  .is-mobile .cover__visual { right: -320px; bottom: -230px; transform: scale(0.4); }
+  .is-mobile .badge-circle.cover__badge { right: 14px; bottom: 16px; width: 64px; height: 64px; }
+}
+
+/* ================= 上方列（取代左側選單） ================= */
+.is-mobile .sidebar {
+  width: 100%;
+  height: var(--bar-h);
+  padding: 0 8px 0 18px;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 1px 0 rgba(10, 49, 97, 0.08);
+}
+.is-mobile .sidebar__brand .brand__mark { font-size: 20px; }
+.is-mobile .sidebar__brand .sidebar__tagline { display: none; }
+
+.sidebar__now,
+.sidebar__toggle { display: none; }
+.is-mobile .sidebar__now {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  min-width: 0;
+  color: var(--c-navy);
+}
+.sidebar__now-no { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; color: var(--c-red); }
+.sidebar__now-name { font-size: 14px; font-weight: 700; letter-spacing: 0.06em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sidebar__now-dots { display: flex; gap: 5px; margin-left: 2px; }
+.sidebar__now-dots i { width: 6px; height: 6px; border-radius: 50%; border: 1.2px solid var(--c-navy); opacity: 0.5; }
+.sidebar__now-dots i.is-seen { background: var(--c-navy); opacity: 0.45; }
+.sidebar__now-dots i.is-here { background: var(--c-red); border-color: var(--c-red); opacity: 1; transform: scale(1.3); }
+
+.is-mobile .sidebar__toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  flex: none;
+  width: 44px;
+  height: 44px;
+}
+.sidebar__toggle i { display: block; width: 20px; height: 2px; border-radius: 1px; background: var(--c-navy); transition: transform 0.3s var(--ease-out), opacity 0.2s; }
+.sidebar.is-open .sidebar__toggle i:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.sidebar.is-open .sidebar__toggle i:nth-child(2) { opacity: 0; }
+.sidebar.is-open .sidebar__toggle i:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* 單元選單：上方列下拉抽屜（用 visibility 隱藏，才量得到頁籤位置） */
+.is-mobile .tabs {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: var(--bar-h);
+  margin: 0;
+  padding: 12px 16px 20px;
+  max-height: calc(var(--stage-h) - var(--bar-h));
+  overflow-y: auto;
+  background: var(--c-sidebar);
+  box-shadow: 0 24px 40px -12px rgba(6, 31, 62, 0.35);
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s var(--ease-out), transform 0.4s var(--ease-out), visibility 0s 0.4s;
+}
+.is-mobile .sidebar.is-open .tabs {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.3s var(--ease-out), transform 0.4s var(--ease-out), visibility 0s;
+}
+.is-mobile .tab { height: 48px; margin-top: 6px; border-right: 1.5px dashed #B9C1CC; border-radius: 24px; }
+.is-mobile .tab:first-child { margin-top: 0; }
+.is-mobile .tab.is-current { border-color: transparent; }
+.is-mobile .tab.is-near { -webkit-mask-image: none; mask-image: none; }
+.is-mobile .tab__btn { padding: 0 20px 0 18px; }
+.is-mobile .tab__name { font-size: 16px; }
+.is-mobile .tab__dots { right: 20px; }
+/* 抽屜裡的指示塊：完整膠囊，不需要接回側欄的反向圓角 */
+.is-mobile .tabs__indicator { left: 16px; right: 16px; border-radius: 24px; box-shadow: 0 6px 14px -6px rgba(6, 31, 62, 0.25); }
+.is-mobile .tabs__indicator::before,
+.is-mobile .tabs__indicator::after { display: none; }
+
+/* ================= 內容區 ================= */
+.is-mobile .slides { left: 0; top: var(--bar-h); width: 100%; height: calc(var(--stage-h) - var(--bar-h)); }
+
+.is-mobile .ghost-word { left: 12px; bottom: 150px; font-size: 120px; }
+
+.is-mobile .head { left: var(--pad-x); right: var(--pad-x); top: 28px; }
+.is-mobile .head__label { margin-bottom: 12px; gap: 10px; }
+.is-mobile .head__sep { width: 20px; }
+.is-mobile .head .t-h1 { font-size: 40px; }
+.is-mobile .head .t-h2 { margin-top: 6px; font-size: 20px; }
+
+.is-mobile .source { left: var(--pad-x); right: auto; bottom: 156px; font-size: 11px; }
+
+/* 霧面玻璃負責人卡：改為下方橫條 */
+.is-mobile .glass {
+  left: 14px;
+  right: 14px;
+  top: auto;
+  bottom: 14px;
+  width: auto;
+  height: 128px;
+  padding: 16px 20px;
+  border-radius: 20px;
+}
+.is-mobile .glass__body { margin-top: auto; }
+.is-mobile .glass__role { gap: 10px; }
+.is-mobile .glass__role::before { width: 18px; }
+.is-mobile .glass__name { margin-top: 6px; font-size: 42px; letter-spacing: 0.05em; }
+.is-mobile .glass__name--long { font-size: 30px; letter-spacing: 0.03em; }
+.is-mobile .glass__foot { display: none; }
+
+/* 色塊：集中在下方玻璃卡後面 */
+.is-mobile .blob { width: 260px; height: 260px; margin: 0 0 0 -130px; left: 72% !important; top: auto !important; bottom: -100px; }
+.is-mobile .blob--s { width: 170px; height: 170px; margin: 0 0 0 -85px; left: 24% !important; bottom: -30px; }
+
+/* 示意條不超出版面 */
+.is-mobile .bar { max-width: 100%; height: 10px; margin-top: 10px; }
+.is-mobile .bar--thick { height: 18px; margin-top: 14px; }
+
+/* ---------- 章節開場頁 ---------- */
+.is-mobile .chapter__no { left: 6px; top: 0; font-size: 240px; }
+.is-mobile .chapter__text { left: var(--pad-x); right: var(--pad-x); bottom: 166px; }
+.is-mobile .chapter__label { margin-bottom: 12px; gap: 10px; }
+.is-mobile .chapter__label::before { width: 24px; }
+.is-mobile .slide--chapter .t-display { font-size: 50px; }
+.is-mobile .chapter__text .t-h2 { margin-top: 10px; font-size: 24px; }
+.is-mobile .chapter__lead { margin-top: 14px; max-width: none; font-size: 15px; line-height: 1.75; letter-spacing: 0.04em; }
+.is-mobile .slide--chapter .glass { top: auto; }
+.is-mobile .slide--chapter .blob { left: 78% !important; top: 26% !important; bottom: auto; }
+.is-mobile .slide--chapter .blob--s { left: 20% !important; top: auto !important; bottom: 40px; }
+
+/* ---------- 結尾頁 ---------- */
+.is-mobile .end__text { left: var(--pad-x); right: var(--pad-x); top: 120px; }
+.is-mobile .slide--end .t-display { font-size: 64px; }
+.is-mobile .end__text .t-h2 { font-size: 24px; }
+.is-mobile .slide--end .glass { bottom: 14px; }
+
+/* ---------- 頁型內容（標題下方、玻璃卡上方） ---------- */
+.is-mobile .ph { left: var(--pad-x); right: var(--pad-x); top: 156px; width: auto; }
+
+/* 數據卡：直向堆疊，數字靠右 */
+.is-mobile .ph-stats { flex-direction: column; gap: 10px; }
+.is-mobile .stat-card { width: auto; height: auto; padding: 14px 18px 14px; display: flex; align-items: center; justify-content: space-between; }
+.is-mobile .stat-card .bar { display: none; }
+.is-mobile .stat-card .t-stat { margin: 0; font-size: 44px; }
+.is-mobile .stat-card .t-stat small { font-size: 20px; margin-left: 4px; }
+.is-mobile .stat-card .t-stat em { font-size: 20px; margin-left: 8px; }
+
+/* 宣言頁 */
+.is-mobile .ph-statement__quote { left: -4px; top: -24px; font-size: 110px; }
+.is-mobile .ph-statement__lines { padding-top: 54px; }
+.is-mobile .ph-statement__num { position: static; margin-top: 28px; gap: 10px; }
+.is-mobile .ph-statement__num .num { font-size: 72px; }
+.is-mobile .ph-statement__num small { font-size: 10px; }
+
+/* 比較表 */
+.is-mobile .compare-table { left: 14px; right: 14px; }
+.is-mobile .compare-table__row { height: 44px; padding: 0 10px; gap: 8px; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 0.8fr); }
+.is-mobile .compare-table__row > span { min-width: 0; }
+.is-mobile .compare-table__row--head { height: 36px; font-size: 9px; letter-spacing: 0.08em; }
+.is-mobile .compare-table__row .bar { height: 8px; }
+.is-mobile .diff { gap: 4px; font-size: 14px; }
+
+/* 時間軸：五個節點縮小 */
+.is-mobile .timeline { left: var(--pad-x); right: calc(var(--pad-x) + 54px); top: 190px; height: 200px; }
+.is-mobile .timeline__axis { top: 42px; }
+.is-mobile .timeline__node { width: 62px; }
+.is-mobile .timeline__phase { height: 26px; font-size: 8px; letter-spacing: 0.06em; }
+.is-mobile .timeline__dot { margin-top: 8px; }
+.is-mobile .timeline__node.is-current .timeline__dot { margin: 4px 0 0 -4px; box-shadow: 0 0 0 5px rgba(179, 25, 66, 0.15); }
+.is-mobile .timeline__name { margin-top: 16px; font-size: 17px; }
+.is-mobile .timeline .bar { width: 52px !important; }
+
+/* Q&A */
+.is-mobile .qa__q { gap: 14px; height: 48px; }
+.is-mobile .qa__q .bar { flex: 0 1 auto; min-width: 0; }
+.is-mobile .qa__mark { width: 30px; height: 30px; font-size: 13px; }
+.is-mobile .qa__toggle { font-size: 22px; }
+.is-mobile .qa__a { gap: 14px; padding: 12px 14px 14px; margin-bottom: 8px; }
+.is-mobile .qa__a > div { flex: 1; min-width: 0; }
+
+/* 結論 */
+.is-mobile .ph-closing { height: auto; }
+.is-mobile .ph-closing__pt { gap: 16px; margin-bottom: 22px; }
+.is-mobile .ph-closing__no { width: 44px; font-size: 32px; }
+.is-mobile .ph-closing__pt > div { flex: 1; min-width: 0; }
+.is-mobile .ph-closing__badge { right: 0; top: auto; bottom: -120px; width: 110px; height: 110px; }
+.is-mobile .ph-closing__badge strong { font-size: 28px; }
+
+/* ================= 跨單元轉場色帶 ================= */
+.is-mobile .wipe__stripe--navy { padding-left: var(--pad-x); }
+.is-mobile .wipe__label { flex-direction: column; align-items: flex-start; gap: 6px; }
+.is-mobile .wipe__no { font-size: 120px; }
+.is-mobile .wipe__en { font-size: 48px; }
+.is-mobile .wipe__zh { font-size: 20px; }
