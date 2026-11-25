@@ -19,9 +19,12 @@
 .is-mobile .brand { gap: 10px; }
 .is-mobile .brand__mark { font-size: 24px; }
 .is-mobile .brand__sub { font-size: 12px; letter-spacing: 0.2em; }
-.is-mobile .cover__topright { align-items: flex-start; gap: 10px; }
+/* 課程資訊區塊：寬度滿版（左右各留 20px），COURSE 撐滿、TEAM 靠右 */
+.is-mobile .cover__topright { align-self: stretch; align-items: stretch; gap: 10px; }
 .is-mobile .cover__meta { gap: 18px; font-size: 13px; }
 .is-mobile .cover__meta li { gap: 6px; padding-left: 10px; }
+.is-mobile .cover__meta li:first-child { flex: 1; min-width: 0; }
+.is-mobile .cover__meta li:last-child { padding-right: 4px; }
 .is-mobile .cover__advisors { margin-top: 4px; font-size: 11px; letter-spacing: 0.02em; }
 
 /* 標語 */
@@ -35,8 +38,10 @@
 
 /* 下半部拼貼：地球儀在右下（台灣、泰國在球體左上方）、人物在左下、核彈按鈕在右下角
    一般手機瀏覽器（含網址列，寬高比約 0.55～0.62）為預設；更長或更短的螢幕見下方 @media */
-.is-mobile .cover__figure { left: -44px; bottom: 0; transform: scale(0.58); }
-.is-mobile .cover__visual { right: -320px; bottom: -194px; transform: scale(0.45); }
+/* 人物：放大為上一版的 140%，並往左 30px */
+.is-mobile .cover__figure { left: -74px; bottom: 0; transform: scale(0.812); }
+/* 地球儀往上 20px、往右 20px，泰國標籤不被人物頭部擋住，台灣標籤也不碰到副標紙條 */
+.is-mobile .cover__visual { right: -340px; bottom: -174px; transform: scale(0.45); }
 .is-mobile .badge-circle.cover__badge {
   right: 18px;
   bottom: 22px;
@@ -66,8 +71,8 @@
 
 /* 較長的螢幕（全螢幕、網址列收起）：拼貼放大 */
 @media (max-aspect-ratio: 10/19) {
-  .is-mobile .cover__figure { left: -46px; bottom: 6px; transform: scale(0.74); }
-  .is-mobile .cover__visual { right: -300px; bottom: -118px; transform: scale(0.56); }
+  .is-mobile .cover__figure { left: -76px; bottom: 6px; transform: scale(1.036); }
+  .is-mobile .cover__visual { right: -300px; bottom: -58px; transform: scale(0.56); } /* 往上 60px */
 }
 /* 較短的螢幕（小尺寸手機＋網址列）：文字與拼貼都縮小 */
 @media (min-aspect-ratio: 5/8) {
@@ -76,8 +81,8 @@
   .is-mobile .cover__eyebrow { margin-bottom: 10px; }
   .is-mobile .cover__headline { font-size: 42px; }
   .is-mobile .cover__lead { margin-top: 12px; font-size: 16px; }
-  .is-mobile .cover__figure { left: -30px; transform: scale(0.5); }
-  .is-mobile .cover__visual { right: -320px; bottom: -230px; transform: scale(0.4); }
+  .is-mobile .cover__figure { left: -60px; transform: scale(0.7); }
+  .is-mobile .cover__visual { right: -360px; bottom: -230px; transform: scale(0.4); } /* 往右 40px */
   .is-mobile .badge-circle.cover__badge { right: 14px; bottom: 16px; width: 64px; height: 64px; }
 }
 
